@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About CRD Cricket Academy</title>
+
+  <!-- GOOGLE FONTS -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FONT AWESOME -->
+
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Outfit',sans-serif;
+      background:#f8fafc;
+      color:#111827;
+      overflow-x:hidden;
+    }
+
+    h1,h2,h3,h4{
+      font-family:'Sora',sans-serif;
+    }
+
+    /* NAVBAR */
+
+    .navbar{
+      transition: all 0.35s ease;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      padding: 8px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .logo{
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
+    .logo-image {
+      margin-top: -5px;
+      margin-bottom: 8px;
+      width: 155px;
+      height: 80px;
+      object-fit: contain;
+      transition: all 0.3s ease;
+      background: none;
+    }
+
+    .logo-image:hover {
+      transform: scale(1.08);
+    }
+
+    .logo-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0ea5e9, #2563eb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 22px;
+      color: white;
+    }
+
+    .logo-text h2 {
+      color: #1f2937;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .logo-text p {
+      font-family: 'Outfit', sans-serif !important;
+      font-weight: 500 !important;
+      opacity: 1;
+      color: #374151 !important;
+      font-size: 0.95rem !important;
+      margin-top: 2px;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:34px;
+      list-style:none;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      color: #1f2937;
+      font-weight: 600;
+      transition: 0.3s;
+      position: relative;
+      display:inline-block;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      background: #2563eb;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover{
+      color: #2563eb;
+      transform: translateY(-2px);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    .menu-btn{
+  display:none;
+  flex-direction:column;
+  gap:6px;
+  cursor:pointer;
+  z-index:1001;
+}
+
+.menu-btn span{
+  width:28px;
+  height:3px;
+  background:#1f2937;
+  border-radius:10px;
+  transition:0.3s ease;
+}
+
+.menu-btn.active span:nth-child(1){ transform:rotate(45deg) translate(5px,5px); }
+.menu-btn.active span:nth-child(2){ opacity:0; }
+.menu-btn.active span:nth-child(3){ transform:rotate(-45deg) translate(7px,-7px); }
+
+/* ── MOBILE NAV POPUP ── */
+@media(max-width:900px){
+
+  .menu-btn{ display:flex; }
+
+  .navbar {
+    padding: 8px 6%;
+  }
+
+  .logo-image {
+    width: 85px;
+    height: 65px;
+  }
+
+  .logo-circle {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+
+  .logo-text h2 {
+    font-size: 1.1rem;
+    color: #1f2937;
+  }
+
+  .logo-text p {
+    font-size: 0.8rem;
+    color: #374151;
+  }
+
+  .nav-links{
+    position:absolute;
+    top:74px;
+    right:16px;
+    width:210px;
+    flex-direction:column;
+    gap:4px;
+    padding:10px;
+    border-radius:18px;
+    background:#ffffff;
+    border:1px solid rgba(0,0,0,0.08);
+    box-shadow:0 8px 24px rgba(0,0,0,0.1);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-8px) scale(0.97);
+    transform-origin:top right;
+    transition:opacity 0.25s ease,transform 0.25s ease,visibility 0.25s ease;
+    z-index:999;
+  }
+
+  .nav-links.active{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0) scale(1);
+  }
+
+  .nav-links li{
+    opacity:0;
+    transform:translateY(6px);
+    transition:opacity 0.22s ease,transform 0.22s ease;
+  }
+
+  .nav-links.active li:nth-child(1){ opacity:1;transform:translateY(0);transition-delay:0.05s; }
+  .nav-links.active li:nth-child(2){ opacity:1;transform:translateY(0);transition-delay:0.10s; }
+  .nav-links.active li:nth-child(3){ opacity:1;transform:translateY(0);transition-delay:0.15s; }
+  .nav-links.active li:nth-child(4){ opacity:1;transform:translateY(0);transition-delay:0.20s; }
+
+  .nav-links a{
+    display:flex !important;
+    align-items:center;
+    gap:12px;
+    color:#1f2937 !important;
+    font-size:0.95rem;
+    font-weight:600;
+    padding:11px 14px;
+    border-radius:12px;
+    text-decoration:none;
+    transition:background 0.2s ease,color 0.2s ease;
+    border:1px solid transparent;
+  }
+
+  .nav-links a i{
+    width:30px;
+    height:30px;
+    border-radius:8px;
+    background:rgba(0,0,0,0.06);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:0.82rem;
+    color:#2563eb;
+    flex-shrink:0;
+    transition:background 0.2s ease,color 0.2s ease;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active{
+    color:#2563eb !important;
+    background:rgba(37,99,235,0.08) !important;
+    border-color:rgba(37,99,235,0.18);
+  }
+
+  .nav-links a:hover i,
+  .nav-links a.active i{
+    background:linear-gradient(135deg,#3b82f6,#06b6d4);
+    color:#fff;
+  }
+
+  .nav-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:998;
+  }
+
+  .nav-overlay.active{ display:block; }
+
+}
+
+@media(max-width:480px){
+
+  .navbar {
+    padding: 8px 4%;
+  }
+
+  .logo {
+    gap: 10px;
+  }
+
+  .logo-image {
+    width: 100px;
+    height: 55px;
+  }
+
+  .logo-text h2 {
+    font-size: 1rem;
+    color: #1f2937;
+    margin-top: 10px;
+  }
+
+  .logo-text p {
+    font-size: 0.3rem;
+    color: #374151;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    color: #1f2937;
+  }
+
+}
+
+    /* HERO */
+
+    .hero{
+      position:relative;
+
+      padding:220px 8% 250px;
+
+      text-align:center;
+
+      background:
+      linear-gradient(
+        rgba(0,0,0,0.40),
+        rgba(0,0,0,0.55)
+      ),
+      url('18884.jpg');
+
+      background-size:cover;
+      background-position:center;
+
+      color:rgb(255, 255, 255);
+    }
+
+    .hero span{
+      display:inline-block;
+
+      padding:10px 22px;
+
+      border-radius:50px;
+
+      background:rgba(255,255,255,0.12);
+
+      margin-bottom:28px;
+
+      font-size:0.92rem;
+      letter-spacing:1px;
+
+      text-transform:uppercase;
+
+      font-weight:600;
+    }
+
+    .hero h1{
+      font-size:clamp(3.5rem,8vw,6rem);
+
+      line-height:1.05;
+
+      margin-bottom:28px;
+
+      letter-spacing:-2px;
+
+      font-weight:800;
+    }
+
+    .hero p{
+      max-width:900px;
+      margin:auto;
+
+      font-size:1.08rem;
+
+      line-height:2;
+
+      color:rgba(255,255,255,0.85);
+    }
+
+    /* ABOUT */
+
+    .about{
+      padding:120px 8%;
+      background:#e8eef5;
+    }
+
+    .about-container{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:70px;
+      align-items:center;
+    }
+
+    .about-image img{
+      width:100%;
+      border-radius:32px;
+
+      box-shadow:
+      0 20px 50px rgba(0,0,0,0.08);
+    }
+
+    .about-content span{
+      color:#2563eb;
+
+      font-weight:700;
+
+      text-transform:uppercase;
+
+      letter-spacing:1px;
+    }
+
+    .about-content h2{
+      font-size:clamp(2.8rem,6vw,4.5rem);
+
+      line-height:1.1;
+
+      margin:25px 0;
+    }
+
+    .about-content p{
+      color:#6b7280;
+
+      line-height:2;
+
+      font-size:1.08rem;
+
+      margin-bottom:22px;
+    }
+
+    /* MISSION */
+
+    .mission{
+      padding:120px 8%;
+      background:#f1f5f9;
+    }
+
+    .mission-heading{
+      text-align:center;
+      margin-bottom:70px;
+    }
+
+    .mission-heading span{
+      color:#2563eb;
+
+      font-weight:700;
+
+      text-transform:uppercase;
+
+      letter-spacing:1px;
+    }
+
+    .mission-heading h2{
+      font-size:clamp(2.8rem,6vw,4.5rem);
+
+      margin-top:25px;
+    }
+
+    .mission-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:35px;
+    }
+
+    .mission-card{
+      background:white;
+
+      padding:45px;
+
+      border-radius:32px;
+
+      transition:0.4s ease;
+
+      box-shadow:
+      0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .mission-card:hover{
+      transform:translateY(-10px);
+
+      box-shadow:
+      0 20px 50px rgba(37,99,235,0.12);
+    }
+
+    .mission-card i{
+      font-size:2.6rem;
+
+      color:#2563eb;
+
+      margin-bottom:28px;
+    }
+
+    .mission-card h3{
+      font-size:1.7rem;
+
+      margin-bottom:18px;
+    }
+
+    .mission-card p{
+      color:#6b7280;
+
+      line-height:2;
+    }
+
+    /* FACILITIES */
+
+    .facilities{
+      padding:120px 8%;
+      background:#f3f4f6;
+    }
+
+    .facilities-heading{
+      text-align:center;
+      margin-bottom:70px;
+    }
+
+    .facilities-heading span{
+      color:#2563eb;
+
+      font-weight:700;
+
+      text-transform:uppercase;
+
+      letter-spacing:1px;
+    }
+
+    .facilities-heading h2{
+      font-size:clamp(2.8rem,6vw,4.5rem);
+
+      margin-top:25px;
+    }
+
+    .facilities-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:30px;
+    }
+
+    .facility-card{
+      background:#f8fafc;
+
+      padding:40px;
+
+      border-radius:30px;
+
+      transition:0.4s ease;
+
+      box-shadow:
+      0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .facility-card:hover{
+      transform:translateY(-10px);
+
+      box-shadow:
+      0 20px 50px rgba(37,99,235,0.12);
+    }
+
+    .facility-card i{
+      font-size:2.4rem;
+
+      color:#2563eb;
+
+      margin-bottom:25px;
+    }
+
+    .facility-card h3{
+      margin-bottom:18px;
+
+      font-size:1.5rem;
+    }
+
+    .facility-card p{
+      color:#6b7280;
+
+      line-height:1.9;
+    }
+
+    /* PROCESS */
+
+    .process{
+      padding:120px 8%;
+      background:#f1f5f9;
+    }
+
+    .process-heading{
+      text-align:center;
+      margin-bottom:70px;
+    }
+
+    .process-heading span{
+      color:#2563eb;
+
+      font-weight:700;
+
+      text-transform:uppercase;
+
+      letter-spacing:1px;
+    }
+
+    .process-heading h2{
+      font-size:clamp(2.8rem,6vw,4.5rem);
+
+      margin-top:25px;
+    }
+
+    .process-grid{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:20px;
+    }
+
+    .process-card{
+      background:white;
+
+      padding:35px 25px;
+
+      border-radius:28px;
+
+      text-align:center;
+
+      transition:0.4s ease;
+
+      box-shadow:
+      0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .process-card:hover{
+      transform:translateY(-10px);
+    }
+
+    .process-number{
+      width:70px;
+      height:70px;
+
+      border-radius:50%;
+
+      background:#2563eb;
+
+      color:white;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      margin:auto auto 25px;
+
+      font-size:1.5rem;
+
+      font-weight:700;
+    }
+
+    .process-card h3{
+      margin-bottom:15px;
+    }
+
+    .process-card p{
+      color:#6b7280;
+      line-height:1.8;
+    }
+
+    /* CTA */
+
+    .cta{
+      padding:140px 8%;
+
+      text-align:center;
+
+      background:
+      linear-gradient(
+        rgba(0,0,0,0.65),
+        rgba(0,0,0,0.75)
+      ),
+      url('19052.jpg');
+
+      background-size:cover;
+      background-position:center;
+
+      color:white;
+    }
+
+    .cta h2{
+      font-size:clamp(3rem,7vw,5rem);
+
+      margin-bottom:28px;
+    }
+
+    .cta p{
+      max-width:850px;
+      margin:auto;
+
+      line-height:2;
+
+      color:rgba(255,255,255,0.84);
+
+      font-size:1.08rem;
+    }
+
+    .cta-buttons{
+      margin-top:45px;
+
+      display:flex;
+      justify-content:center;
+      gap:20px;
+
+      flex-wrap:wrap;
+    }
+
+    .cta-btn{
+      padding:16px 34px;
+
+      border-radius:60px;
+
+      text-decoration:none;
+
+      font-weight:600;
+
+      transition:0.35s ease;
+    }
+
+    .primary-btn{
+      background:#42d9f4;
+      color:rgb(8, 7, 7);
+    }
+
+    .primary-btn:hover{
+      transform:translateY(-5px);
+    }
+
+    .secondary-btn{
+      background:#42d9f4;
+
+      color:rgb(4, 3, 3);
+
+      border:1px solid rgba(255,255,255,0.12);
+    }
+
+    .secondary-btn:hover{
+      transform:translateY(-5px);
+    }
+
+    /* FOOTER */
+
+    .footer{
+      background:#070707;
+
+      color:white;
+
+      padding:80px 8% 30px;
+
+      text-align:center;
+    }
+
+    .footer h3{
+      font-size:2rem;
+
+      margin-bottom:18px;
+    }
+
+    .footer p{
+      color:#9ca3af;
+
+      max-width:700px;
+      margin:auto;
+
+      line-height:1.9;
+    }
+
+    .footer-bottom{
+      margin-top:40px;
+
+      border-top:1px solid rgba(255,255,255,0.08);
+
+      padding-top:20px;
+
+      color:#9ca3af;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:1000px){
+
+      .about-container{
+        grid-template-columns:1fr;
+      }
+
+      .mission-grid,
+      .facilities-grid{
+        grid-template-columns:1fr;
+      }
+
+      .process-grid{
+        grid-template-columns:1fr;
+      }
+
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <nav class="navbar">
+
+  <div class="logo">
+    <img src="CRD Logo_240402_120452_00000.png" alt="CRD Logo" class="logo-image">
+    <div class="logo-text">
+      <h2>CRD Cricket Academy</h2>
+      <p>Play Better.Dream Bigger.</p>
+    </div>
+  </div>
+
+  <div class="menu-btn" id="menuBtn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html"><i class="fas fa-house"></i>Home</a></li>
+    <li><a href="coaches.html"><i class="fas fa-person-chalkboard"></i>Coaches</a></li>
+    <li><a href="gallery.html"><i class="fas fa-images"></i>Gallery</a></li>
+    <li><a href="reviews.html"><i class="fas fa-star"></i>Reviews</a></li>
+  </ul>
+
+</nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <span>About CRD Cricket Academy</span>
+
+    <h1>Building Future Cricket Champions</h1>
+
+    <p>
+      CRD Cricket Academy focuses on professional cricket coaching,
+      discipline, fitness, and match preparation to help young
+      cricketers improve their game in a competitive environment.
+    </p>
+
+  </section>
+
+  <!-- ABOUT -->
+
+  <section class="about">
+
+    <div class="about-container">
+
+      <div class="about-image">
+
+        <img src="four.jpg">
+
+      </div>
+
+      <div class="about-content">
+
+        <span>Who We Are</span>
+
+        <h2>Professional Cricket Training Environment</h2>
+
+        <p>
+          CRD Cricket Academy is India's leading cricket development center, dedicated to nurturing young cricket talent through world-class coaching, modern training facilities, and professional match exposure. We believe in transforming passionate cricketers into disciplined, confident, and technically skilled athletes who excel both on and off the field.
+        </p>
+
+        <p>
+          Our academy combines expert coaching from internationally experienced mentors, cutting-edge training methods, and competitive match practice to ensure holistic player development. We focus on building complete cricketers—batsmen, bowlers, and all-rounders—who are prepared for district, state, and national-level competitions. Every player at CRD Cricket Academy receives personalized attention, technical guidance, and the platform to showcase their potential in a professional environment.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- MISSION -->
+
+  <section class="mission">
+
+    <div class="mission-heading">
+
+      <span>Our Goals</span>
+
+      <h2>Mission & Vision</h2>
+
+    </div>
+
+    <div class="mission-grid">
+
+      <div class="mission-card">
+
+        <i class="fas fa-bullseye"></i>
+
+        <h3>Our Mission</h3>
+
+        <p>
+          To provide professional cricket coaching and create disciplined players through modern training methods, match preparation, and fitness-focused practice sessions.
+We aim to build a positive and competitive environment where every player gets the opportunity to improve their skills, mindset, and overall game performance under experienced guidance. Our academy focuses on technical development, teamwork, sportsmanship, and continuous growth both on and off the field.
+        </p>
+
+      </div>
+
+      <div class="mission-card">
+
+        <i class="fas fa-trophy"></i>
+
+        <h3>Our Vision</h3>
+
+        <p>
+          To develop future district, state, and national-level cricketers by building confidence, discipline, consistency, and strong cricket fundamentals.
+We envision creating a platform where young talent can transform into successful athletes through dedication, quality coaching, and professional cricket exposure. Our goal is to inspire the next generation of cricketers to achieve excellence while maintaining respect, determination, and passion for the game.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FACILITIES -->
+
+  <section class="facilities">
+
+    <div class="facilities-heading">
+
+      <span>Infrastructure</span>
+
+      <h2>Facilities & Training</h2>
+
+    </div>
+
+    <div class="facilities-grid">
+
+      <div class="facility-card">
+
+        <i class="fas fa-baseball-ball"></i>
+
+        <h3>Professional Nets</h3>
+
+        <p>
+          Structured batting and bowling practice sessions with
+          focused skill development training.
+        </p>
+
+      </div>
+
+      <div class="facility-card">
+
+        <i class="fas fa-dumbbell"></i>
+
+        <h3>Fitness Training</h3>
+
+        <p>
+          Regular fitness drills and conditioning programs to
+          improve strength, agility, and endurance.
+        </p>
+
+      </div>
+
+      <div class="facility-card">
+
+        <i class="fas fa-medal"></i>
+
+        <h3>Match Practice</h3>
+
+        <p>
+          Match simulations and competitive exposure to help
+          players improve confidence and game awareness.
+        </p>
+
+      </div>
+
+      <div class="facility-card">
+
+        <i class="fas fa-user-graduate"></i>
+
+        <h3>Expert Coaches</h3>
+
+        <p>
+          Experienced coaches providing personal attention and
+          technical guidance for every player.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PROCESS -->
+
+  <section class="process">
+
+    <div class="process-heading">
+
+      <span>Training Routine</span>
+
+      <h2>Our Training Process</h2>
+
+    </div>
+
+    <div class="process-grid">
+
+      <div class="process-card">
+
+        <div class="process-number">1</div>
+
+        <h3>Warm-Up</h3>
+
+        <p>
+          Dynamic exercises and stretching sessions before practice.
+        </p>
+
+      </div>
+
+      <div class="process-card">
+
+        <div class="process-number">2</div>
+
+        <h3>Skill Practice</h3>
+
+        <p>
+          Technical batting, bowling, and fielding drills.
+        </p>
+
+      </div>
+
+      <div class="process-card">
+
+        <div class="process-number">3</div>
+
+        <h3>Net Sessions</h3>
+
+        <p>
+          Professional net practice with match-like intensity.
+        </p>
+
+      </div>
+
+      <div class="process-card">
+
+        <div class="process-number">4</div>
+
+        <h3>Match Simulation</h3>
+
+        <p>
+          Competitive game scenarios for confidence building.
+        </p>
+
+      </div>
+
+      <div class="process-card">
+
+        <div class="process-number">5</div>
+
+        <h3>Performance Review</h3>
+
+        <p>
+          Coach feedback and improvement planning after sessions.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+
+  <section class="cta">
+
+    <h2>Start Your Cricket Journey Today</h2>
+
+    <p>
+      Join CRD Cricket Academy and train with experienced coaches
+      in a professional environment designed for future champions.
+    </p>
+
+    <div class="cta-buttons">
+
+      <a href="index.html" class="cta-btn primary-btn">
+        Join Academy
+      </a>
+
+      <a href="gallery.html" class="cta-btn secondary-btn">
+        View Gallery
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+
+    <h3>CRD Cricket Academy</h3>
+
+    <p>
+      Building future cricket champions with professional coaching,
+      advanced training methods, and competitive match experience.
+    </p>
+
+    <div class="footer-bottom">
+      © 2026 CRD Cricket Academy. All Rights Reserved.
+    </div>
+
+  </footer>
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+const navOverlay = document.getElementById('navOverlay');
+
+function openMenu() {
+  navLinks.classList.add('active');
+  menuBtn.classList.add('active');
+  navOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMenu() {
+  navLinks.classList.remove('active');
+  menuBtn.classList.remove('active');
+  navOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+menuBtn.addEventListener('click', () => {
+  navLinks.classList.contains('active') ? closeMenu() : openMenu();
+});
+
+navOverlay.addEventListener('click', closeMenu);
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+</script>
+</body>
+</html>

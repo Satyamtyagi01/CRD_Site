@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRD Academy Reviews</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Outfit',sans-serif;
+      background:#f8fafc;
+      color:#111827;
+      overflow-x:hidden;
+    }
+
+    h1,h2,h3,h4{
+      font-family:'Sora',sans-serif;
+    }
+
+    /* NAVBAR */
+
+    .navbar{
+      transition: all 0.35s ease;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      padding: 8px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .logo{
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
+    .logo-image {
+      margin-top: -5px;
+      margin-bottom: 8px;
+      width: 155px;
+      height: 80px;
+      object-fit: contain;
+      transition: all 0.3s ease;
+      background: none;
+    }
+
+    .logo-image:hover {
+      transform: scale(1.08);
+    }
+
+    .logo-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0ea5e9, #2563eb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 22px;
+      color: white;
+    }
+
+    .logo-text h2 {
+      color: #1f2937;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .logo-text p {
+      font-family: 'Outfit', sans-serif !important;
+      font-weight: 500 !important;
+      opacity: 1;
+      color: #374151 !important;
+      font-size: 0.95rem !important;
+      margin-top: 2px;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:34px;
+      list-style:none;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      color: #1f2937;
+      font-weight: 600;
+      transition: 0.3s;
+      position: relative;
+      display:inline-block;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      background: #2563eb;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover{
+      color: #2563eb;
+      transform: translateY(-2px);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .menu-btn{
+      display:none;
+      flex-direction:column;
+      gap:6px;
+      cursor:pointer;
+      z-index:1001;
+    }
+
+    .menu-btn span{
+      width:28px;
+      height:3px;
+      background:#1f2937;
+      border-radius:10px;
+      transition:0.3s ease;
+    }
+
+    .menu-btn.active span:nth-child(1){ transform:rotate(45deg) translate(5px,5px); }
+    .menu-btn.active span:nth-child(2){ opacity:0; }
+    .menu-btn.active span:nth-child(3){ transform:rotate(-45deg) translate(7px,-7px); }
+
+    /* ── MOBILE NAV POPUP ── */
+@media(max-width:900px){
+
+  .menu-btn{ display:flex; }
+
+  .navbar {
+    padding: 8px 6%;
+  }
+
+  .logo-image {
+    width: 85px;
+    height: 65px;
+  }
+
+  .logo-text h2 {
+    font-size: 1.1rem;
+    color: #1f2937;
+  }
+
+  .logo-text p {
+    font-size: 0.8rem;
+    color: #374151;
+  }
+
+  .nav-links{
+    position:absolute;
+    top:74px;
+    right:16px;
+    width:210px;
+    flex-direction:column;
+    gap:4px;
+    padding:10px;
+    border-radius:18px;
+    background:#ffffff;
+    border:1px solid rgba(0,0,0,0.08);
+    box-shadow:0 8px 24px rgba(0,0,0,0.1);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-8px) scale(0.97);
+    transform-origin:top right;
+    transition:opacity 0.25s ease,transform 0.25s ease,visibility 0.25s ease;
+    z-index:999;
+  }
+
+  .nav-links.active{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0) scale(1);
+  }
+
+  .nav-links li{
+    opacity:0;
+    transform:translateY(6px);
+    transition:opacity 0.22s ease,transform 0.22s ease;
+  }
+
+  .nav-links.active li:nth-child(1){ opacity:1;transform:translateY(0);transition-delay:0.05s; }
+  .nav-links.active li:nth-child(2){ opacity:1;transform:translateY(0);transition-delay:0.10s; }
+  .nav-links.active li:nth-child(3){ opacity:1;transform:translateY(0);transition-delay:0.15s; }
+  .nav-links.active li:nth-child(4){ opacity:1;transform:translateY(0);transition-delay:0.20s; }
+
+  .nav-links a{
+    display:flex !important;
+    align-items:center;
+    gap:12px;
+    color:#1f2937 !important;
+    font-size:0.95rem;
+    font-weight:600;
+    padding:11px 14px;
+    border-radius:12px;
+    text-decoration:none;
+    transition:background 0.2s ease,color 0.2s ease;
+    border:1px solid transparent;
+  }
+
+  .nav-links a i{
+    width:30px;
+    height:30px;
+    border-radius:8px;
+    background:rgba(0,0,0,0.06);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:0.82rem;
+    color:#2563eb;
+    flex-shrink:0;
+    transition:background 0.2s ease,color 0.2s ease;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active{
+    color:#2563eb !important;
+    background:rgba(37,99,235,0.08) !important;
+    border-color:rgba(37,99,235,0.18);
+  }
+
+  .nav-links a:hover i,
+  .nav-links a.active i{
+    background:linear-gradient(135deg,#3b82f6,#06b6d4);
+    color:#fff;
+  }
+
+  .nav-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:998;
+  }
+
+  .nav-overlay.active{ display:block; }
+
+}
+
+@media(max-width:480px){
+
+  .navbar {
+    padding: 8px 4%;
+  }
+
+  .logo {
+    gap: 10px;
+  }
+
+  .logo-image {
+    width: 100px;
+    height: 55px;
+  }
+
+  .logo-text h2 {
+    font-size: 1rem;
+    color: #1f2937;
+    margin-top: 10px;
+  }
+
+  .logo-text p {
+    font-size: 0.3rem;
+    color: #374151;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    color: #1f2937;
+  }
+
+}
+
+    /* HERO */
+
+    .hero{
+      position:relative;
+      padding:310px 8% 250px;
+      text-align:center;
+      background:
+        linear-gradient(
+          rgba(0,0,0,0.50),
+          rgba(0,0,0,0.60)
+        ),
+        url('https://plus.unsplash.com/premium_photo-1679917506585-2c7b89054610?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y3JpY2tldCUyMHJldmlld3xlbnwwfHwwfHx8MA%3D%3D');
+      background-size:cover;
+      background-position:center;
+      color:white;
+    }
+
+    .hero span{
+      display:inline-block;
+      margin-bottom:25px;
+      padding:10px 22px;
+      border-radius:50px;
+      background:rgba(255,255,255,0.10);
+      font-size:0.9rem;
+      letter-spacing:1px;
+      text-transform:uppercase;
+    }
+
+    .hero h1{
+      font-size:clamp(3.5rem,8vw,6rem);
+      line-height:1.05;
+      margin-bottom:30px;
+      font-weight:800;
+    }
+
+    .hero p{
+      max-width:850px;
+      margin:auto;
+      line-height:2;
+      color:rgba(255,255,255,0.85);
+      font-size:1.08rem;
+    }
+
+    /* STATS BANNER */
+
+    .stats-banner{
+      background:white;
+      padding:60px 8%;
+      display:flex;
+      justify-content:center;
+      gap:60px;
+      flex-wrap:wrap;
+      box-shadow:0 4px 30px rgba(0,0,0,0.06);
+    }
+
+    .stat-item{
+      text-align:center;
+    }
+
+    .stat-item h3{
+      font-size:3rem;
+      font-weight:800;
+      color:#2563eb;
+      line-height:1;
+      margin-bottom:10px;
+    }
+
+    .stat-item p{
+      color:#6b7280;
+      font-weight:600;
+      font-size:1rem;
+    }
+
+    /* REVIEWS INTRO */
+
+    .reviews-intro{
+      padding:100px 8% 60px;
+      text-align:center;
+      background:#f8fafc;
+    }
+
+    .reviews-intro span{
+      color:#2563eb;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+
+    .reviews-intro h2{
+      font-size:clamp(2.8rem,6vw,4.5rem);
+      margin:25px 0;
+    }
+
+    .reviews-intro p{
+      max-width:900px;
+      margin:auto;
+      line-height:2;
+      color:#6b7280;
+      font-size:1.08rem;
+    }
+
+    /* RATING SUMMARY */
+
+    .rating-summary{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:50px;
+      flex-wrap:wrap;
+      margin-top:50px;
+      padding:40px;
+      background:white;
+      border-radius:30px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.06);
+      max-width:800px;
+      margin:50px auto 0;
+    }
+
+    .overall-rating{
+      text-align:center;
+    }
+
+    .overall-rating .big-number{
+      font-size:5rem;
+      font-weight:800;
+      color:#111827;
+      font-family:'Sora',sans-serif;
+      line-height:1;
+    }
+
+    .overall-rating .stars{
+      color:#f59e0b;
+      font-size:1.5rem;
+      margin:8px 0;
+    }
+
+    .overall-rating p{
+      color:#6b7280;
+      font-size:0.95rem;
+    }
+
+    .rating-bars{
+      flex:1;
+      min-width:220px;
+    }
+
+    .bar-row{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:10px;
+    }
+
+    .bar-row span{
+      font-size:0.9rem;
+      color:#6b7280;
+      width:40px;
+      flex-shrink:0;
+    }
+
+    .bar-track{
+      flex:1;
+      height:10px;
+      background:#f1f5f9;
+      border-radius:50px;
+      overflow:hidden;
+    }
+
+    .bar-fill{
+      height:100%;
+      background:linear-gradient(90deg,#2563eb,#06b6d4);
+      border-radius:50px;
+    }
+
+    .bar-count{
+      font-size:0.85rem;
+      color:#9ca3af;
+      width:20px;
+      text-align:right;
+    }
+
+    /* REVIEWS GRID */
+
+    .reviews-section{
+      padding:20px 8% 120px;
+      background:#f8fafc;
+    }
+
+    .reviews-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:30px;
+      max-width:1300px;
+      margin:auto;
+    }
+
+    .review-card{
+      background:white;
+      border-radius:28px;
+      padding:36px;
+      box-shadow:0 8px 28px rgba(0,0,0,0.06);
+      transition:0.4s ease;
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .review-card::before{
+      content:'\201C';
+      font-family:'Sora',sans-serif;
+      position:absolute;
+      top:-10px;
+      right:22px;
+      font-size:8rem;
+      color:#eff6ff;
+      line-height:1;
+      pointer-events:none;
+    }
+
+    .review-card:hover{
+      transform:translateY(-10px);
+      box-shadow:0 20px 50px rgba(37,99,235,0.13);
+    }
+
+    .review-card.featured{
+      background:linear-gradient(135deg,#3abcf3,#306ef3);
+      color:white;
+    }
+
+    .review-card.featured::before{
+      color:rgba(255,255,255,0.1);
+    }
+
+    .review-card.featured .review-text{
+      color:rgba(6, 5, 5, 0.9);
+    }
+
+    .review-card.featured .reviewer-role{
+      color:rgba(255,255,255,0.65);
+    }
+
+    .review-card.featured .stars{
+      color:#fbbf24;
+    }
+
+    .stars{
+      color:#f59e0b;
+      font-size:1.1rem;
+      display:flex;
+      gap:3px;
+    }
+
+    .review-text{
+      color:#374151;
+      line-height:1.85;
+      font-size:1rem;
+      flex:1;
+    }
+
+    .reviewer{
+      display:flex;
+      align-items:center;
+      gap:15px;
+      margin-top:auto;
+    }
+
+    .reviewer-avatar{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      object-fit:cover;
+      flex-shrink:0;
+    }
+
+    .reviewer-avatar-placeholder{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.2rem;
+      font-weight:700;
+      font-family:'Sora',sans-serif;
+      flex-shrink:0;
+      color:white;
+    }
+
+    .reviewer-name{
+      font-weight:700;
+      font-size:1rem;
+    }
+
+    .reviewer-role{
+      font-size:0.88rem;
+      color:#6b7280;
+      margin-top:2px;
+    }
+
+    .review-badge{
+      display:inline-block;
+      padding:5px 14px;
+      border-radius:50px;
+      font-size:0.8rem;
+      font-weight:600;
+      background:#eff6ff;
+      color:#2563eb;
+      align-self:flex-start;
+    }
+
+    .review-card.featured .review-badge{
+      background:rgba(255,255,255,0.15);
+      color:white;
+    }
+
+    /* FEATURED QUOTE */
+
+    .featured-quote{
+      padding:100px 8%;
+      text-align:center;
+      background:white;
+    }
+
+    .featured-quote blockquote{
+      font-family:'Sora',sans-serif;
+      font-size:clamp(1.6rem,3vw,2.5rem);
+      font-weight:700;
+      max-width:1000px;
+      margin:auto;
+      line-height:1.5;
+      color:#111827;
+    }
+
+    .featured-quote blockquote span{
+      color:#2563eb;
+    }
+
+    .featured-quote cite{
+      display:block;
+      margin-top:30px;
+      font-style:normal;
+      color:#6b7280;
+      font-size:1rem;
+    }
+
+    /* CTA */
+
+    .cta{
+      padding:130px 8%;
+      text-align:center;
+      background:
+        linear-gradient(
+          rgba(0,0,0,0.68),
+          rgba(0,0,0,0.72)
+        ),
+        url('https://plus.unsplash.com/premium_photo-1722122215541-5c25d9f8e4d3?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Njl8fGNyaWNrZXQlMjBuZXQlMjBwcmFjdGljZXxlbnwwfHwwfHx8MA%3D%3D');
+      background-size:cover;
+      background-position:center;
+      color:white;
+    }
+
+    .cta h2{
+      font-size:clamp(3rem,7vw,5rem);
+      margin-bottom:25px;
+    }
+
+    .cta p{
+      max-width:850px;
+      margin:auto;
+      line-height:2;
+      color:rgba(255,255,255,0.82);
+      font-size:1.08rem;
+    }
+
+    .cta-buttons{
+      margin-top:45px;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .cta-btn{
+      padding:16px 34px;
+      border-radius:60px;
+      text-decoration:none;
+      font-weight:600;
+      transition:0.35s ease;
+    }
+
+    .primary-btn{
+      background:#42d9f4;
+      color:rgb(5, 4, 4);
+    }
+
+    .primary-btn:hover{
+      transform:translateY(-5px);
+    }
+
+    .secondary-btn{
+      background:#42d9f4;
+      color:rgb(3, 3, 3);
+      border:1px solid rgba(255,255,255,0.12);
+    }
+
+    .secondary-btn:hover{
+      transform:translateY(-5px);
+    }
+
+    /* FOOTER */
+
+    .footer{
+      background:#050505;
+      color:white;
+      padding:80px 8% 30px;
+      text-align:center;
+    }
+
+    .footer h3{
+      font-size:2rem;
+      margin-bottom:18px;
+    }
+
+    .footer p{
+      color:#9ca3af;
+      max-width:700px;
+      margin:auto;
+      line-height:1.9;
+    }
+
+    .footer-bottom{
+      margin-top:40px;
+      border-top:1px solid rgba(255,255,255,0.08);
+      padding-top:20px;
+      color:#9ca3af;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:1050px){
+      .reviews-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media(max-width:900px){
+
+      .reviews-grid{
+        grid-template-columns:1fr;
+      }
+
+      .navbar{
+        padding:18px 6%;
+      }
+
+      .menu-btn{ display:flex; }
+
+      .stats-banner{
+        gap:30px;
+      }
+
+      .nav-links{
+        position:absolute;
+        top:74px;
+        right:16px;
+        width:210px;
+        flex-direction:column;
+        gap:4px;
+        padding:10px;
+        border-radius:18px;
+        background:white;
+        backdrop-filter:blur(20px);
+        -webkit-backdrop-filter:blur(20px);
+        border:1px solid rgba(96,165,250,0.18);
+        box-shadow:0 16px 48px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04);
+        opacity:0;
+        visibility:hidden;
+        transform:translateY(-8px) scale(0.97);
+        transform-origin:top right;
+        transition:opacity 0.25s ease,transform 0.25s ease,visibility 0.25s ease;
+        z-index:999;
+      }
+
+      .nav-links::before{
+        content:'';
+        position:absolute;
+        top:0;left:0;right:0;
+        height:2px;
+        border-radius:18px 18px 0 0;
+        background:linear-gradient(90deg,#3b82f6,#06b6d4,#22c55e);
+      }
+
+      .nav-links.active{
+        opacity:1;
+        visibility:visible;
+        transform:translateY(0) scale(1);
+      }
+
+      .nav-links li{
+        opacity:0;
+        transform:translateY(6px);
+        transition:opacity 0.22s ease,transform 0.22s ease;
+      }
+
+      .nav-links.active li:nth-child(1){ opacity:1;transform:translateY(0);transition-delay:0.05s; }
+      .nav-links.active li:nth-child(2){ opacity:1;transform:translateY(0);transition-delay:0.10s; }
+      .nav-links.active li:nth-child(3){ opacity:1;transform:translateY(0);transition-delay:0.15s; }
+      .nav-links.active li:nth-child(4){ opacity:1;transform:translateY(0);transition-delay:0.20s; }
+
+      .nav-links a{
+        display:flex !important;
+        align-items:center;
+        gap:12px;
+        color:rgba(9, 9, 10, 0.9) !important;
+        font-size:0.95rem;
+        font-weight:600;
+        padding:11px 14px;
+        border-radius:12px;
+        text-decoration:none;
+        transition:background 0.2s ease,color 0.2s ease;
+        border:1px solid transparent;
+      }
+
+      .nav-links a i{
+        width:30px;
+        height:30px;
+        border-radius:8px;
+        background:rgba(255,255,255,0.06);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:0.82rem;
+        color:#60a5fa;
+        flex-shrink:0;
+        transition:background 0.2s ease,color 0.2s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active{
+        color:#fff !important;
+        background:rgba(96,165,250,0.13) !important;
+        border-color:rgba(96,165,250,0.18);
+      }
+
+      .nav-links a:hover i,
+      .nav-links a.active i{
+        background:linear-gradient(135deg,#3b82f6,#06b6d4);
+        color:#fff;
+      }
+
+      .nav-overlay{
+        display:none;
+        position:fixed;
+        inset:0;
+        z-index:998;
+      }
+
+      .nav-overlay.active{ display:block; }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <nav class="navbar">
+
+  <div class="logo">
+    <img src="CRD Logo_240402_120452_00000.png" alt="CRD Logo" class="logo-image">
+    <div class="logo-text">
+      <h2>CRD Cricket Academy</h2>
+      <p>Play Better.Dream Bigger.</p>
+    </div>
+  </div>
+
+  <div class="menu-btn" id="menuBtn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html"><i class="fas fa-house"></i>Home</a></li>
+    <li><a href="about.html"><i class="fas fa-circle-info"></i>About</a></li>
+    <li><a href="gallery.html"><i class="fas fa-images"></i>Gallery</a></li>
+    <li><a href="coaches.html"><i class="fas fa-star"></i>Reviews</a></li>
+  </ul>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <span>CRD Cricket Academy
+</span>
+
+    <h1>What Our Players Say</h1>
+
+    <p>
+      Real stories from real cricketers. Hear directly from our students,
+      parents, and alumni about their journey at CRD Cricket Academy
+ and how our coaching transformed their game.
+    </p>
+
+  </section>
+
+  <!-- STATS BANNER -->
+
+  <div class="stats-banner">
+
+    <div class="stat-item">
+      <h3>4.9</h3>
+      <p>Overall Rating</p>
+    </div>
+
+    <div class="stat-item">
+      <h3>200+</h3>
+      <p>Students Trained</p>
+    </div>
+
+    <div class="stat-item">
+      <h3>98%</h3>
+      <p>Satisfaction Rate</p>
+    </div>
+
+    <div class="stat-item">
+      <h3>15+</h3>
+      <p>State Selections</p>
+    </div>
+
+  </div>
+
+  <!-- REVIEWS INTRO -->
+
+  <section class="reviews-intro">
+
+    <span>Testimonials</span>
+
+    <h2>Trusted By Cricketers & Families</h2>
+
+    <p>
+      From beginners picking up a bat for the first time to competitive players
+      aiming for state selection — here's what our academy family has to say about
+      their experience at CRD Cricket Academy.
+    </p>
+
+    <!-- RATING SUMMARY -->
+
+    <div class="rating-summary">
+
+      <div class="overall-rating">
+        <div class="big-number">4.9</div>
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i>
+        </div>
+        <p>Based on 200+ reviews</p>
+      </div>
+
+      <div class="rating-bars">
+        <div class="bar-row">
+          <span>5 ★</span>
+          <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+          <span class="bar-count">176</span>
+        </div>
+        <div class="bar-row">
+          <span>4 ★</span>
+          <div class="bar-track"><div class="bar-fill" style="width:9%"></div></div>
+          <span class="bar-count">18</span>
+        </div>
+        <div class="bar-row">
+          <span>3 ★</span>
+          <div class="bar-track"><div class="bar-fill" style="width:2%"></div></div>
+          <span class="bar-count">4</span>
+        </div>
+        <div class="bar-row">
+          <span>2 ★</span>
+          <div class="bar-track"><div class="bar-fill" style="width:0.5%"></div></div>
+          <span class="bar-count">1</span>
+        </div>
+        <div class="bar-row">
+          <span>1 ★</span>
+          <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+          <span class="bar-count">0</span>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- REVIEWS GRID -->
+
+  <section class="reviews-section">
+
+    <div class="reviews-grid">
+
+      <!-- REVIEW 1 — FEATURED -->
+
+      <div class="review-card featured">
+
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+
+        <p class="review-text">
+          Joining CRD Cricket Academy was the best decision of my cricket career.
+          Coach Jitin's guidance on my batting stance and footwork completely
+          transformed my game within just three months. I scored my first century
+          in an inter-district match shortly after. The discipline here is
+          unmatched anywhere in the region.
+        </p>
+
+        <span class="review-badge">⭐ Top Review</span>
+
+        <div class="reviewer">
+          <div class="reviewer-avatar-placeholder" style="background:linear-gradient(135deg,#60a5fa,#06b6d4);">A</div>
+          <div>
+            <div class="reviewer-name">Arjun Sharma</div>
+            <div class="reviewer-role" style="color:rgba(255,255,255,0.65);">Under-19 Batsman · 2 Years at CRD</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- REVIEW 2 -->
+
+      <div class="review-card">
+
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+
+        <p class="review-text">
+          As a parent, I was initially unsure about enrolling my son here, but
+          Coach Ankur's personal attention to each student gave me full
+          confidence. My son's batting average doubled in just one season.
+          The structured training program and positive environment here are
+          truly exceptional.
+        </p>
+
+        <span class="review-badge">Parent Review</span>
+
+        <div class="reviewer">
+          <div class="reviewer-avatar-placeholder" style="background:linear-gradient(135deg,#a78bfa,#8b5cf6);">S</div>
+          <div>
+            <div class="reviewer-name">Sunita Agarwal</div>
+            <div class="reviewer-role">Parent of U-14 Player</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- REVIEW 3 -->
+
+      <div class="review-card">
+
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+
+        <p class="review-text">
+          The bowling sessions with Coach Jitin are absolutely world-class.
+          He broke down my action in detail, fixed my run-up, and helped me
+          add serious pace. I went from being a medium pacer to clocking
+          consistently above 130 kmph. CRD Cricket Academy is where real bowlers
+          are made.
+        </p>
+
+        <span class="review-badge">Fast Bowler</span>
+
+        <div class="reviewer">
+          <div class="reviewer-avatar-placeholder" style="background:linear-gradient(135deg,#34d399,#059669);">R</div>
+          <div>
+            <div class="reviewer-name">Rohit Yadav</div>
+            <div class="reviewer-role">Fast Bowler · 18 months at CRD</div>
+          </div>
+        </div>
+
+      </div>
+      
+
+      <!-- REVIEW 4 -->
+
+      <div class="review-card">
+
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+
+        <p class="review-text">
+          I had tried two other academies before CRD. The difference is
+          massive. Here the coaches actually watch and correct every single
+          player during nets. The fitness regime is tough but fair, and the
+          mental conditioning sessions helped me stay calm under pressure
+          in big matches. Highly recommend to any serious cricketer.
+        </p>
+
+        <span class="review-badge">Alumni</span>
+
+        <div class="reviewer">
+          <div class="reviewer-avatar-placeholder" style="background:linear-gradient(135deg,#fb923c,#ea580c);">K</div>
+          <div>
+            <div class="reviewer-name">Karan Mishra</div>
+            <div class="reviewer-role">All-Rounder · State Level</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- REVIEW 5 -->
+
+      <div class="review-card">
+
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+
+        <p class="review-text">
+          My daughter joined CRD at age 11 with zero cricket background. In
+          less than a year, she was selected in the district girls' team.
+          The coaches here have incredible patience with young beginners.
+          The academy's environment is safe, encouraging, and professional.
+          We are so grateful for Coach Ankur's mentorship.
+        </p>
+
+        <span class="review-badge">Parent Review</span>
+
+        <div class="reviewer">
+          <div class="reviewer-avatar-placeholder" style="background:linear-gradient(135deg,#f472b6,#db2777);">P</div>
+          <div>
+            <div class="reviewer-name">Priya Gupta</div>
+            <div class="reviewer-role">Parent of Girls' District Player</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- REVIEW 6 -->
+
+      <div class="review-card">
+
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+
+        <p class="review-text">
+          Coach Jatin's batting sessions changed the way I look at the game.
+          He taught me not just technique but how to read the bowler, build
+          an innings, and rotate the strike intelligently. I used to throw
+          my wicket away early every match — now I bat through with
+          confidence. CRD Cricket Academy is a game-changer.
+        </p>
+
+        <span class="review-badge">Batting Student</span>
+
+        <div class="reviewer">
+          <div class="reviewer-avatar-placeholder" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);">V</div>
+          <div>
+            <div class="reviewer-name">Varun Saxena</div>
+            <div class="reviewer-role">Opening Batsman · Under-19</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- REVIEW 7 -->
+
+      <div class="review-card">
+
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i>
+        </div>
+
+        <p class="review-text">
+          The morning training sessions start at 5:30 AM and they are
+          intense — exactly what serious cricketers need. The ground
+          facilities are well-maintained and the coaching staff are
+          always prepared with structured drills. My fielding has
+          improved tremendously. Looking forward to another season here.
+        </p>
+
+        <span class="review-badge">Fielding & Fitness</span>
+
+        <div class="reviewer">
+          <div class="reviewer-avatar-placeholder" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);">N</div>
+          <div>
+            <div class="reviewer-name">Nikhil Tomar</div>
+            <div class="reviewer-role">Student · 8 Months at CRD</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- REVIEW 8 -->
+
+      <div class="review-card">
+
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+
+        <p class="review-text">
+          I joined as a wicket-keeper and was struggling with consistency
+          behind the stumps. Coach Jitin worked with me separately on
+          footwork and glove technique. Within six months I had zero
+          byes in our internal tournament. The level of individual attention
+          each coach gives here is something I have never seen elsewhere.
+        </p>
+
+        <span class="review-badge">Wicket-Keeper</span>
+
+        <div class="reviewer">
+          <div class="reviewer-avatar-placeholder" style="background:linear-gradient(135deg,#fbbf24,#d97706);">A</div>
+          <div>
+            <div class="reviewer-name">Amit Rawat</div>
+            <div class="reviewer-role">Wicket-Keeper Batsman</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- REVIEW 9 -->
+
+      <div class="review-card">
+
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+
+        <p class="review-text">
+          Both my sons train at CRD and as a family we are absolutely
+          delighted. The coaches remember every player's progress and
+          adjust the sessions accordingly. There is a strong culture of
+          respect, punctuality, and sportsmanship here which benefits
+          our kids far beyond cricket. A truly holistic academy.
+        </p>
+
+        <span class="review-badge">Parent Review</span>
+
+        <div class="reviewer">
+          <div class="reviewer-avatar-placeholder" style="background:linear-gradient(135deg,#4ade80,#16a34a);">M</div>
+          <div>
+            <div class="reviewer-name">Manoj Tripathi</div>
+            <div class="reviewer-role">Parent of Two CRD Students</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- REVIEW 10 -->
+
+      <div class="review-card">
+
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+
+        <p class="review-text">
+          After completing two years at CRD Cricket Academy, I secured a spot in
+          the Uttar Pradesh Under-23 trials. The IPL-level experience
+          Coach Jitin brings to every session is visible in how he
+          trains us for high-pressure situations. This academy turned
+          my dream into a genuine possibility. I owe my cricket career
+          to CRD.
+        </p>
+
+        <span class="review-badge">🏆 State Trial Selected</span>
+
+        <div class="reviewer">
+          <div class="reviewer-avatar-placeholder" style="background:linear-gradient(135deg,#e879f9,#a21caf);">D</div>
+          <div>
+            <div class="reviewer-name">Deepak Singh</div>
+            <div class="reviewer-role">UP Under-23 Aspirant · 2 Years at CRD</div>
+          </div>
+        </div>
+
+      </div>
+      <!-- REVIEW 11 -->
+
+      <div class="review-card">
+
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+
+        <p class="review-text">
+          The bowling sessions with Coach Jitin are absolutely world-class.
+          He broke down my action in detail, fixed my run-up, and helped me
+          add serious pace. I went from being a medium pacer to clocking
+          consistently above 130 kmph. CRD Cricket Academy is where real bowlers
+          are made.
+        </p>
+
+        <span class="review-badge">Fast Bowler</span>
+
+        <div class="reviewer">
+          <div class="reviewer-avatar-placeholder" style="background:linear-gradient(135deg,#34d399,#059669);">R</div>
+          <div>
+            <div class="reviewer-name">Rohit Yadav</div>
+            <div class="reviewer-role">Fast Bowler · 18 months at CRD</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FEATURED QUOTE -->
+
+  <section class="featured-quote">
+
+    <blockquote>
+      "Every champion was once a contender who <span>refused to give up.</span>
+      At CRD, we don't just coach cricket — we build the character of future champions."
+    </blockquote>
+
+    <cite>— Coaching Staff, CRD Cricket Academy</cite>
+
+  </section>
+
+  <!-- CTA -->
+
+  <section class="cta">
+
+    <h2>Be Our Next Success Story</h2>
+
+    <p>
+      Join CRD Cricket Academy and train with experienced coaches
+      in a professional cricket environment designed for future
+      champions.
+    </p>
+
+    <div class="cta-buttons">
+
+      <a href="index.html" class="cta-btn primary-btn">
+        Join Academy
+      </a>
+
+      <a href="coaches.html" class="cta-btn secondary-btn">
+        Meet Our Coaches
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+
+    <h3>CRD Cricket Academy
+</h3>
+
+    <p>
+      Building future cricket champions with professional coaching,
+      advanced training methods, and competitive match experience.
+    </p>
+
+    <div class="footer-bottom">
+      © 2026 CRD Cricket Academy
+. All Rights Reserved.
+    </div>
+
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    const navOverlay = document.getElementById('navOverlay');
+
+    function openMenu() {
+      navLinks.classList.add('active');
+      menuBtn.classList.add('active');
+      navOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      navLinks.classList.remove('active');
+      menuBtn.classList.remove('active');
+      navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.contains('active') ? closeMenu() : openMenu();
+    });
+
+    navOverlay.addEventListener('click', closeMenu);
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  </script>
+
+</body>
+</html>
